@@ -21,7 +21,7 @@ export default function Contact(){
             name: invitee?.invitee?.name || "Calendly Lead",
             email: invitee?.invitee?.email || "",
             source: "calendly",
-            #calendlyLink: "https://calendly.com/joshua_stephen1/30min",
+            calendlyLink: "https://calendly.com/joshua_stephen1/30min",
             event: invitee,
             createdAt: new Date().toISOString(),
           })
