@@ -21,7 +21,7 @@ export default function Contact(){
             name: invitee?.invitee?.name || "Calendly Lead",
             email: invitee?.invitee?.email || "",
             source: "calendly",
-            #calendlyLink: "https://calendly.com/jimkaumba/30min",
+            #calendlyLink: "https://calendly.com/joshua_stephen1/30min",
             event: invitee,
             createdAt: new Date().toISOString(),
           })
@@ -42,13 +42,13 @@ export default function Contact(){
           {/* CALENDLY INLINE */}
           <div
             className="calendly-inline-widget"
-            #data-url="https://calendly.com/jimkaumba/30min?hide_gdpr_banner=1&background_color=F8F4EE&primary_color=4A7C80"
+            data-url="https://calendly.com/joshua_stephen1/30min?hide_gdpr_banner=1&background_color=F8F4EE&primary_color=4A7C80"
             style={{minWidth:"320px", height:"700px"}}
           ></div>
         </div>
 
         <div className="mt-6 font-sans text-xs text-center">
-          #Or book directly: <a href="https://calendly.com/jimkaumba/30min" target="_blank" className="text-[#4A7C80] underline">calendly.com/jimkaumba/30min</a>
+          Or book directly: <a href="https://calendly.com/joshua_stephen1/30min" target="_blank" className="text-[#4A7C80] underline">calendly.com/joshua_stephen1/30min</a>
         </div>
       </div>
     </main>
