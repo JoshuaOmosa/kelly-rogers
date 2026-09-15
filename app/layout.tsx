@@ -1,19 +1,8 @@
-import type { Metadata } from "next";
-import "./globals.css";
-
-export const metadata: Metadata = {
-  title: "Kelly Rogers",
-  description: "Dashboard",
-};
-
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+import Header from './components/Header'
+export default function RootLayout({children}:{children:React.ReactNode}){
   return (
-    <html lang="en">
-      <body>{children}</body>
-    </html>
-  );
+    <html><body style={{margin:0, background:'#F6F1E9'}}>
+      <Header/>{children}
+    </body></html>
+  )
 }
