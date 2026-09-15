@@ -50,7 +50,7 @@ export default function Services() {
             <li>Mindfulness & grounding techniques</li>
             <li>Building self-compassion & boundaries</li>
           </ul>
-          <Link href="/coaching" className="mt-4 w-full bg-[#4A7C80] hover:bg-[#3D6A6D] text-white text-[13px] py-1.5 rounded-[6px] text-center">Learn More</Link>
+          <Link href="/contact" className="mt-4 w-full bg-[#4A7C80] hover:bg-[#3D6A6D] text-white text-[13px] py-1.5 rounded-[6px] text-center">Learn More</Link>
         </div>
 
         {/* Card 3 */}
