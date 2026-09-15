@@ -11,7 +11,7 @@ export default function Home() {
           <a style={{borderBottom:'2px solid #4A6B6E', paddingBottom:2}}>Home</a>
           <a href="/about">About</a>
           <a href="/coaching">Coaching Specialties</a>
-          <a href="/divorce-coaching">Divorce Coaching</a>
+          <a href="/services">Services</a>
           <a href="/process">The Process</a>
           <a href="/fees">Fees & Hours</a>
           <a href="/reviews">Reviews</a>
@@ -50,7 +50,7 @@ export default function Home() {
         <p style={{fontFamily:'Arial', fontSize:14, marginTop:6}}>Three core areas of care designed to support you during times of change</p>
         <div style={{display:'grid', gridTemplateColumns:'1fr 1fr 1fr', gap:20, marginTop:30}}>
           {[
-            {t:'Divorce Coaching', d:'Guidance for separation and divorce. Practical and emotional support to navigate co-parenting, communication, and moving forward with clarity and confidence.'},
+            {t:'Services', d:'Guidance for separation and divorce. Practical and emotional support to navigate co-parenting, communication, and moving forward with clarity and confidence.'},
             {t:'Counselling & Stress Management', d:'Evidence-based support for anxiety, stress and overwhelm. Therapeutic approaches tailored to your needs using CBT and mindfulness practices.'},
             {t:'Clinical Support & Wellbeing', d:'Individual support for life transitions, self-esteem, and emotional regulation. A compassionate, non-judgemental space for growth and healing.'},
           ].map(card=>(
