@@ -10,7 +10,6 @@ export default function Home() {
         <div style={{display:'flex', gap:22, alignItems:'center', fontFamily:'Arial', fontSize:14}}>
           <a style={{borderBottom:'2px solid #4A6B6E', paddingBottom:2}}>Home</a>
           <a href="/about">About</a>
-          <a href="/coaching">Coaching Specialties</a>
           <a href="/services">Services</a>
           <a href="/process">The Process</a>
           <a href="/fees">Fees & Hours</a>
@@ -50,15 +49,15 @@ export default function Home() {
         <p style={{fontFamily:'Arial', fontSize:14, marginTop:6}}>Three core areas of care designed to support you during times of change</p>
         <div style={{display:'grid', gridTemplateColumns:'1fr 1fr 1fr', gap:20, marginTop:30}}>
           {[
-            {t:'Services', d:'Guidance for separation and divorce. Practical and emotional support to navigate co-parenting, communication, and moving forward with clarity and confidence.'},
-            {t:'Counselling & Stress Management', d:'Evidence-based support for anxiety, stress and overwhelm. Therapeutic approaches tailored to your needs using CBT and mindfulness practices.'},
-            {t:'Clinical Support & Wellbeing', d:'Individual support for life transitions, self-esteem, and emotional regulation. A compassionate, non-judgemental space for growth and healing.'},
-          ].map(card=>(
+              {t:'Services', d:'Comprehensive coaching, counselling and clinical support tailored to your life transitions.', h:'/services'},
+              {t:'Counselling & Stress Management', d:'Evidence-based support for anxiety, stress and overwhelm using CBT and mindfulness.', h:'/services'},
+              {t:'Clinical Support & Wellbeing', d:'Individual support for life transitions, self-esteem, and emotional regulation.', h:'/services'},
+            ].map((card)=> (
             <div key={card.t} style={{background:'white', borderRadius:14, padding:'24px 18px', boxShadow:'0 8px 30px rgba(0,0,0,0.08)'}}>
               <div style={{width:48, height:48, borderRadius:'50%', background:'#DDE6DC', margin:'0 auto 14px'}}></div>
               <h3 style={{fontSize:20, fontWeight:400}}>{card.t}</h3>
               <p style={{fontFamily:'Arial', fontSize:12, lineHeight:1.5, marginTop:10}}>{card.d}</p>
-              <div style={{marginTop:12, fontFamily:'Arial', fontSize:12, color:'#4A7C80'}}>Learn more →</div>
+              <a href={card.h} style={{marginTop:12, fontFamily:'Arial', fontSize:12, color:'#4A7C80', textDecoration:'none', display:'block'}}>Learn more →</a>
             </div>
           ))}
         </div>
