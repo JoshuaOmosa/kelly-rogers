@@ -18,7 +18,7 @@ export default function ContactPage() {
           <h1 style={{ fontFamily: "Canela, Georgia, serif", fontSize: "clamp(42px,6vw,64px)", color: "#4A7C7E", margin: 0, lineHeight: 1 }}>Contact</h1>
           <p style={{ fontFamily: "Inter", fontSize: 17, color: "#2B222B", fontWeight: 500, maxWidth: 700, margin: "14px auto 0", lineHeight: 1.6 }}>
             We're here to help. Have a question or want to connect? Send us a message below or book a free 15-minute consultation to see if we're a good fit.<br/>
-            <b style={{ color: "#4A7C7E" }}>Current Fee: $0 • Doctoral Candidate - Regent University - May 2028 • Virginia Beach, VA</b>
+            <b style={{ color: "#4A7C7E" }}> Doctoral Candidate - Regent University - May 2028 • Virginia Beach, VA</b>
           </p>
         </div>
 
@@ -28,10 +28,10 @@ export default function ContactPage() {
             <h2 style={h2}>Send us a message</h2>
             
             <label style={label}>Full Name</label>
-            <input style={input} placeholder="Jane Doe" />
+            <input style={input} placeholder="Joshua Stephen" />
 
             <label style={label}>Email</label>
-            <input style={input} placeholder="jane@email.com" />
+            <input style={input} placeholder="joshua@email.com" />
 
             <label style={label}>Phone</label>
             <input style={input} placeholder="(555) 123-4567" />
