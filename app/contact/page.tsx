@@ -1,56 +1,113 @@
-"use client"
-import { useEffect } from "react"
+"use client";
+import { useEffect } from "react";
 
-export default function Contact(){
-  useEffect(()=>{
-    // Load Calendly script
-    const script = document.createElement("script")
-    script.src = "https://assets.calendly.com/assets/external/widget.js"
-    script.async = true
-    document.body.appendChild(script)
-
-    // Listen for booking -> create lead
-    const handleMessage = (e:any) => {
-      if(e.data.event && e.data.event === "calendly.event_scheduled"){
-        const invitee = e.data.payload
-        // CREATE LEAD
-        fetch("/api/leads", {
-          method: "POST",
-          headers: {"Content-Type":"application/json"},
-          body: JSON.stringify({
-            name: invitee?.invitee?.name || "Calendly Lead",
-            email: invitee?.invitee?.email || "",
-            source: "calendly",
-            calendlyLink: "https://calendly.com/joshua_stephen1/30min",
-            event: invitee,
-            createdAt: new Date().toISOString(),
-          })
-        }).then(()=> alert("Booking confirmed! Lead created in dashboard."))
-      }
-    }
-    window.addEventListener("message", handleMessage)
-    return () => window.removeEventListener("message", handleMessage)
-  },[])
+export default function ContactPage() {
+  useEffect(() => {
+    const script = document.createElement("script");
+    script.src = "https://assets.calendly.com/assets/external/widget.js";
+    script.async = true;
+    document.body.appendChild(script);
+  }, []);
 
   return (
-    <main className="bg-[#F8F4EE] min-h-screen p-[60px] font-serif">
-      <div className="max-w-[1100px] mx-auto">
-        <h1 className="text-[44px]">Book a Free Consultation</h1>
-        <p className="font-sans text-sm mt-3">Current Fee: $0 • Doctoral Candidate - Regent University - May 2028 • Virginia Beach, VA</p>
-
-        <div className="mt-8 bg-white rounded-2xl p-2 shadow-lg">
-          {/* CALENDLY INLINE */}
-          <div
-            className="calendly-inline-widget"
-            data-url="https://calendly.com/joshua_stephen1/30min?hide_gdpr_banner=1&background_color=F8F4EE&primary_color=4A7C80"
-            style={{minWidth:"320px", height:"700px"}}
-          ></div>
+    <main style={{ background: "#F7F3EF", minHeight: "100vh" }}>
+      <div style={{ maxWidth: 1180, margin: "0 auto", padding: "40px 18px 0" }}>
+        
+        {/* Title */}
+        <div style={{ textAlign: "center", marginBottom: 28 }}>
+          <h1 style={{ fontFamily: "Canela, Georgia, serif", fontSize: "clamp(42px,6vw,64px)", color: "#4A7C7E", margin: 0, lineHeight: 1 }}>Contact</h1>
+          <p style={{ fontFamily: "Inter", fontSize: 17, color: "#2B222B", fontWeight: 500, maxWidth: 700, margin: "14px auto 0", lineHeight: 1.6 }}>
+            We're here to help. Have a question or want to connect? Send us a message below or book a free 15-minute consultation to see if we're a good fit.<br/>
+            <b style={{ color: "#4A7C7E" }}>Current Fee: $0 • Doctoral Candidate - Regent University - May 2028 • Virginia Beach, VA</b>
+          </p>
         </div>
 
-        <div className="mt-6 font-sans text-xs text-center">
-          Or book directly: <a href="https://calendly.com/joshua_stephen1/30min" target="_blank" className="text-[#4A7C80] underline">calendly.com/joshua_stephen1/30min</a>
+        <div className="contact-grid">
+          {/* LEFT FORM */}
+          <div style={card}>
+            <h2 style={h2}>Send us a message</h2>
+            
+            <label style={label}>Full Name</label>
+            <input style={input} placeholder="Jane Doe" />
+
+            <label style={label}>Email</label>
+            <input style={input} placeholder="jane@email.com" />
+
+            <label style={label}>Phone</label>
+            <input style={input} placeholder="(555) 123-4567" />
+
+            <label style={label}>How can we support you?</label>
+            <textarea style={{ ...input, height: 110, resize: "none" }} placeholder="Tell us a bit about what you're looking for support with..." />
+
+            <div style={{ marginTop: 16, display: "flex", gap: 10, alignItems: "flex-start" }}>
+              <input type="checkbox" defaultChecked style={{ width: 18, height: 18, accentColor: "#4A7C7E" }} />
+              <span style={small}>I consent to being contacted regarding my inquiry via the information provided above.</span>
+            </div>
+            <div style={{ marginTop: 10, display: "flex", gap: 10, alignItems: "flex-start" }}>
+              <input type="checkbox" style={{ width: 18, height: 18, accentColor: "#4A7C7E" }} />
+              <span style={small}>I have read and agree to the Privacy Policy.</span>
+            </div>
+
+            <button style={btn}>✈ Send Message</button>
+            <p style={{ fontFamily: "Inter", fontSize: 13, textAlign: "center", marginTop: 12, color: "#2B222B" }}>We typically respond within 1-2 business days.</p>
+          </div>
+
+          {/* RIGHT CALENDLY */}
+          <div style={card}>
+            <div style={{ display: "flex", gap: 10, alignItems: "center", marginBottom: 4 }}>
+              <span style={{ fontSize: 26 }}>📅</span>
+              <h2 style={{ ...h2, margin: 0 }}>Book a Free 15-min Consultation</h2>
+            </div>
+            <p style={{ fontFamily: "Inter", fontSize: 13, color: "#2B222B", margin: "0 0 12px 36px" }}>Select a time that works for you — powered by Calendly</p>
+
+            <div
+              className="calendly-inline-widget"
+              data-url="https://calendly.com/joshua_stephen1/30min?hide_gdpr_banner=1&background_color=FDFD&text_color=2B222B&primary_color=4A7C7E"
+              style={{ minWidth: "100%", height: 560, borderRadius: 12, overflow: "hidden" }}
+            />
+
+            <div style={{ marginTop: 18, paddingTop: 14, borderTop: "1px solid #E8DDD0" }}>
+              <div style={infoTitle}>📍 Contact Information</div>
+              <div style={infoLine}>✉️ kelly@kellyrogerspsychology.com • Virginia Beach, VA</div>
+              <div style={infoLine}>🕐 Office Hours: Mon-Fri • 9:00am – 5:00pm ET</div>
+              <div style={infoLine}>💻 Virginia Beach, VA • Virtual & In-Person Sessions</div>
+              <div style={{ marginTop: 10 }}>
+                <a href="https://calendly.com/joshua_stephen1/30min" target="_blank" style={{ fontFamily: "Inter", fontSize: 13, color: "#4A7C7E", fontWeight: 700 }}>Or book directly: calendly.com/joshua_stephen1/30min</a>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
+
+      {/* Crisis Banner */}
+      <div style={{ background: "#D9E4D0", marginTop: 32, padding: "18px 20px", display: "flex", gap: 14, alignItems: "flex-start" }}>
+        <div style={{ maxWidth: 1180, margin: "0 auto", display: "flex", gap: 14, width: "100%" }}>
+          <div style={{ minWidth: 36, height: 36, background: "#4A7C7E", color: "white", borderRadius: "50%", display: "flex", alignItems: "center", justifyContent: "center", fontWeight: 900, fontSize: 18 }}>i</div>
+          <div>
+            <div style={{ fontFamily: "Inter", fontWeight: 800, fontSize: 16, color: "#111" }}>If you are in crisis or need immediate support, please contact your local crisis line.</div>
+            <div style={{ fontFamily: "Inter", fontSize: 13, color: "#111", lineHeight: 1.6, marginTop: 4 }}>
+              For Canada: Suicide Crisis Helpline — call or text 988 (24/7) • Crisis Text Line — text HOME to 741741 • Emergency: 911.<br/>
+              For US: Call or text 988 • Suicide & Crisis Lifeline 24/7 • This site is not for emergencies. If you are in immediate danger, call 911 or go to your nearest emergency department.
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <style>{`
+        .contact-grid{ display:grid; grid-template-columns:1fr 1fr; gap:20px; }
+        @media(max-width:900px){
+          .contact-grid{ grid-template-columns:1fr; }
+        }
+      `}</style>
     </main>
   )
 }
+
+const card = { background: "white", border: "1.5px solid #4A7C7E", borderRadius: 16, padding: "22px 20px", boxShadow: "0 10px 30px rgba(0,0,0,0.08)" } as const
+const h2 = { fontFamily: "Canela, Georgia, serif", fontSize: 28, color: "#2B222B", margin: "0 0 16px" } as const
+const label = { fontFamily: "Inter", fontSize: 13, fontWeight: 700, color: "#2B222B", display: "block", margin: "12px 0 6px" } as const
+const input = { width: "100%", background: "#F7F3EF", border: "1px solid #E0D5C3", borderRadius: 8, padding: "11px 14px", fontFamily: "Inter", fontSize: 15, color: "#111", outline: "none" } as const
+const small = { fontFamily: "Inter", fontSize: 12.5, color: "#2B222B", lineHeight: 1.5 } as const
+const btn = { width: "100%", marginTop: 18, background: "#4A7C7E", color: "white", border: "none", borderRadius: 100, padding: "14px", fontFamily: "Inter", fontSize: 16, fontWeight: 800, cursor: "pointer" } as const
+const infoTitle = { fontFamily: "Inter", fontSize: 14, fontWeight: 800, color: "#2B222B", marginBottom: 8 } as const
+const infoLine = { fontFamily: "Inter", fontSize: 13, color: "#2B222B", lineHeight: 1.8, fontWeight: 500 } as const
