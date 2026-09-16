@@ -64,9 +64,20 @@ export default function ServicesPage(){
 
       {/* CLINICAL */}
       <section id="clinical" className="service-section">
-        <div className="service-img">
-          <img src="https://images.unsplash.com/photo-1573497620056-bd5dd1e7dd5b?q=80&w=600" alt="Clinical Support" />
-        </div>
+        {/* 01 - DIVORCE COACHING - Navigating a new path / bridge / transition */}
+<div className="service-img">
+  <img src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?q=80&w=600" alt="New path forward - divorce coaching" />
+</div>
+
+{/* 02 - COUNSELLING & STRESS - Calm, zen stones, breathing, balance */}
+<div className="service-img">
+  <img src="https://images.unsplash.com/photo-1506126613408-eca07ce68773?q=80&w=600" alt="Calm and stress management" />
+</div>
+
+{/* 03 - CLINICAL SUPPORT - Wellbeing, growth, journaling, healing */}
+<div className="service-img">
+  <img src="https://images.unsplash.com/photo-1484480974693-6ca0a78fb36b?q=80&w=600" alt="Clinical support and wellbeing" />
+</div>
         <div className="service-box">
           <span className="num">03 • Clinical Support & Wellbeing</span>
           <h2>Clinical Support & Wellbeing</h2>
