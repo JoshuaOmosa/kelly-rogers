@@ -7,7 +7,7 @@ export default function ServicesPage(){
       {/* DIVORCE COACHING */}
       <section id="divorce" className="service-section">
         <div className="service-img">
-          <img src="https://images.unsplash.com/photo-1573497491765-dccce02b29df?q=80&w=600" alt="Divorce Coaching" />
+            <img src="https://images.unsplash.com/photo-1506126613408-eca07ce68773?q=80&w=600" alt="Calm and stress management" />
         </div>
         <div className="service-box">
           <span className="num">01 • Divorce Coaching</span>
@@ -64,16 +64,7 @@ export default function ServicesPage(){
 
       {/* CLINICAL */}
       <section id="clinical" className="service-section">
-        {/* 01 - DIVORCE COACHING - Navigating a new path / bridge / transition */}
-<div className="service-img">
-  <img src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?q=80&w=600" alt="New path forward - divorce coaching" />
-</div>
-
-{/* 02 - COUNSELLING & STRESS - Calm, zen stones, breathing, balance */}
-<div className="service-img">
-  <img src="https://images.unsplash.com/photo-1506126613408-eca07ce68773?q=80&w=600" alt="Calm and stress management" />
-</div>
-
+       
 {/* 03 - CLINICAL SUPPORT - Wellbeing, growth, journaling, healing */}
 <div className="service-img">
   <img src="https://images.unsplash.com/photo-1484480974693-6ca0a78fb36b?q=80&w=600" alt="Clinical support and wellbeing" />
