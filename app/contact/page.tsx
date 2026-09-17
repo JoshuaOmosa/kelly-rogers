@@ -1,7 +1,11 @@
 "use client";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 export default function ContactPage() {
+  const [form, setForm] = useState({ name: "", email: "", phone: "", message: "" });
+  const [loading, setLoading] = useState(false);
+  const [sent, setSent] = useState(false);
+
   useEffect(() => {
     const script = document.createElement("script");
     script.src = "https://assets.calendly.com/assets/external/widget.js";
@@ -9,11 +13,36 @@ export default function ContactPage() {
     document.body.appendChild(script);
   }, []);
 
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if(!form.name || !form.email || !form.message) {
+      alert("Please fill name, email and message");
+      return;
+    }
+    setLoading(true);
+    try {
+      const res = await fetch("/api/leads", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(form),
+      });
+      const data = await res.json();
+      if(!res.ok) throw new Error(data.error || "Failed to send");
+
+      setSent(true);
+      setForm({ name: "", email: "", phone: "", message: "" });
+      setTimeout(() => setSent(false), 6000);
+    } catch (err: any) {
+      alert("Error: " + err.message);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
     <main style={{ background: "#F7F3EF", minHeight: "100vh" }}>
       <div style={{ maxWidth: 1180, margin: "0 auto", padding: "40px 18px 0" }}>
         
-        {/* Title */}
         <div style={{ textAlign: "center", marginBottom: 28 }}>
           <h1 style={{ fontFamily: "Canela, Georgia, serif", fontSize: "clamp(42px,6vw,64px)", color: "#4A7C7E", margin: 0, lineHeight: 1 }}>Contact</h1>
           <p style={{ fontFamily: "Inter", fontSize: 17, color: "#2B222B", fontWeight: 500, maxWidth: 700, margin: "14px auto 0", lineHeight: 1.6 }}>
@@ -23,36 +52,47 @@ export default function ContactPage() {
         </div>
 
         <div className="contact-grid">
-          {/* LEFT FORM */}
+          {/* LEFT FORM - NOW WORKING */}
           <div style={card}>
             <h2 style={h2}>Send us a message</h2>
             
-            <label style={label}>Full Name</label>
-            <input style={input} placeholder="Joshua Stephen" />
+            <form onSubmit={handleSubmit}>
+              <label style={label}>Full Name</label>
+              <input style={input} placeholder="Joshua Stephen" required
+                value={form.name} onChange={e => setForm({...form, name: e.target.value})} />
 
-            <label style={label}>Email</label>
-            <input style={input} placeholder="joshua@email.com" />
+              <label style={label}>Email</label>
+              <input style={input} type="email" placeholder="joshua@email.com" required
+                value={form.email} onChange={e => setForm({...form, email: e.target.value})} />
 
-            <label style={label}>Phone</label>
-            <input style={input} placeholder="(555) 123-4567" />
+              <label style={label}>Phone</label>
+              <input style={input} placeholder="(555) 123-4567"
+                value={form.phone} onChange={e => setForm({...form, phone: e.target.value})} />
 
-            <label style={label}>How can we support you?</label>
-            <textarea style={{ ...input, height: 110, resize: "none" }} placeholder="Tell us a bit about what you're looking for support with..." />
+              <label style={label}>How can we support you?</label>
+              <textarea style={{ ...input, height: 110, resize: "none" }} required
+                placeholder="Tell us a bit about what you're looking for support with..."
+                value={form.message} onChange={e => setForm({...form, message: e.target.value})} />
 
-            <div style={{ marginTop: 16, display: "flex", gap: 10, alignItems: "flex-start" }}>
-              <input type="checkbox" defaultChecked style={{ width: 18, height: 18, accentColor: "#4A7C7E" }} />
-              <span style={small}>I consent to being contacted regarding my inquiry via the information provided above.</span>
-            </div>
-            <div style={{ marginTop: 10, display: "flex", gap: 10, alignItems: "flex-start" }}>
-              <input type="checkbox" style={{ width: 18, height: 18, accentColor: "#4A7C7E" }} />
-              <span style={small}>I have read and agree to the Privacy Policy.</span>
-            </div>
+              <div style={{ marginTop: 16, display: "flex", gap: 10, alignItems: "flex-start" }}>
+                <input type="checkbox" defaultChecked style={{ width: 18, height: 18, accentColor: "#4A7C7E" }} />
+                <span style={small}>I consent to being contacted regarding my inquiry via the information provided above.</span>
+              </div>
+              <div style={{ marginTop: 10, display: "flex", gap: 10, alignItems: "flex-start" }}>
+                <input type="checkbox" required style={{ width: 18, height: 18, accentColor: "#4A7C7E" }} />
+                <span style={small}>I have read and agree to the Privacy Policy.</span>
+              </div>
 
-            <button style={btn}>✈ Send Message</button>
-            <p style={{ fontFamily: "Inter", fontSize: 13, textAlign: "center", marginTop: 12, color: "#2B222B" }}>We typically respond within 1-2 business days.</p>
+              <button type="submit" disabled={loading} style={{...btn, opacity: loading ? 0.6 : 1}}>
+                {loading ? "Sending..." : "✈ Send Message"}
+              </button>
+              
+              {sent && <p style={{fontFamily:"Inter", color:"#2e7d32", fontWeight:700, textAlign:"center", marginTop:12}}>✓ Message sent! Check Supabase leads table. We will contact you within 1-2 days.</p>}
+              <p style={{ fontFamily: "Inter", fontSize: 13, textAlign: "center", marginTop: 12, color: "#2B222B" }}>We typically respond within 1-2 business days.</p>
+            </form>
           </div>
 
-          {/* RIGHT CALENDLY */}
+          {/* RIGHT CALENDLY - UNCHANGED */}
           <div style={card}>
             <div style={{ display: "flex", gap: 10, alignItems: "center", marginBottom: 4 }}>
               <span style={{ fontSize: 26 }}>📅</span>
@@ -79,7 +119,6 @@ export default function ContactPage() {
         </div>
       </div>
 
-      {/* Crisis Banner */}
       <div style={{ background: "#D9E4D0", marginTop: 32, padding: "18px 20px", display: "flex", gap: 14, alignItems: "flex-start" }}>
         <div style={{ maxWidth: 1180, margin: "0 auto", display: "flex", gap: 14, width: "100%" }}>
           <div style={{ minWidth: 36, height: 36, background: "#4A7C7E", color: "white", borderRadius: "50%", display: "flex", alignItems: "center", justifyContent: "center", fontWeight: 900, fontSize: 18 }}>i</div>
