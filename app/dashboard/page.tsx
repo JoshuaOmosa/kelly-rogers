@@ -29,10 +29,10 @@ export default function DashboardPage(){
     setApproved(JSON.parse(localStorage.getItem("kr_approved_reviews")||"[]"));
   },[router]);
 
-  const fetchLeads = async () => {
-    const { data, error } = await supabase.from("leads").select("*").order("created_at", { ascending: false });
-    if(error) { addLog("❌ Error fetching leads: " + error.message); return; }
-    if(!data) return;
+    const fetchLeads = async () => {
+    const res = await fetch("/api/leads")
+    const data = await res.json()
+    if(!data || !Array.isArray(data)) { addLog("❌ No data from /api/leads"); return; }
     const mapped: Lead[] = data.map((l:any)=>({
       id: l.id,
       date: new Date(l.created_at).toLocaleDateString(),
@@ -46,25 +46,19 @@ export default function DashboardPage(){
       bg: l.status==="New"? "#4A7C7E" : "#A8B5A0"
     }));
     setLeads(mapped);
+    addLog(`✅ Loaded ${mapped.length} leads from Supabase`);
   };
 
   const addLog=(msg:string)=>setLog(prev=>[`${new Date().toLocaleTimeString()} — ${msg}`,...prev].slice(0,10));
 
-  const updateStatus= async (id:string, newStatus:Lead["status"])=>{
-    const { error } = await supabase.from("leads").update({ status: newStatus }).eq("id", id);
-    if(error) { addLog("❌ "+error.message); return; }
-
-    // REAL EMAIL TRIGGERS
-    const lead = leads.find(l=>l.id===id);
-    if(!lead) return;
-
-    if(newStatus==="Quote Sent"){
-      addLog(`📧 Quote marked sent to ${lead.name} — scheduling 3d & 7d`);
-      // you can auto-send 3-day later via cron, but for now log
-    }
-    if(newStatus==="Won"){
-      addLog(`✅ ${lead.name} marked Won — ready for review request`);
-    }
+    const updateStatus= async (id:string, newStatus:Lead["status"])=>{
+    const res = await fetch("/api/leads", {
+      method: "PATCH",
+      headers: {"Content-Type": "application/json"},
+      body: JSON.stringify({ id, status: newStatus })
+    });
+    if(!res.ok) { addLog("❌ Failed to update"); return; }
+    addLog(`🔄 ${id} → ${newStatus}`);
     fetchLeads();
   };
 
