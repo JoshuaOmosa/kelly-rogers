@@ -21,7 +21,8 @@ export default function ContactPage() {
     }
     setLoading(true);
     try {
-      const res = await fetch("/api/leads", {
+      // FIXED: correct endpoint
+      const res = await fetch("/api/contact", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(form),
@@ -31,7 +32,7 @@ export default function ContactPage() {
 
       setSent(true);
       setForm({ name: "", email: "", phone: "", message: "" });
-      setTimeout(() => setSent(false), 6000);
+      setTimeout(() => setSent(false), 8000);
     } catch (err: any) {
       alert("Error: " + err.message);
     } finally {
@@ -52,10 +53,20 @@ export default function ContactPage() {
         </div>
 
         <div className="contact-grid">
-          {/* LEFT FORM - NOW WORKING */}
           <div style={card}>
             <h2 style={h2}>Send us a message</h2>
             
+            {sent ? (
+              <div style={{ background: "#E8F5E9", border: "1px solid #A5D6A7", borderRadius: 12, padding: "32px 20px", textAlign: "center" }}>
+                <div style={{ fontSize: 42, marginBottom: 8 }}>✓</div>
+                <h3 style={{ fontFamily: "Canela, serif", fontSize: 26, color: "#2E7D32", margin: "0 0 8px" }}>Thank you!</h3>
+                <p style={{ fontFamily: "Inter", fontSize: 15, color: "#2B222B", lineHeight: 1.6 }}>
+                  Your message has been received. Our team will review it and get back to you within <b>24 hours</b>.
+                </p>
+                <p style={{ fontFamily: "Inter", fontSize: 13, color: "#666", marginTop: 10 }}>We appreciate you reaching out.</p>
+                <button onClick={() => setSent(false)} style={{ marginTop: 16, background: "white", border: "1px solid #A5D6A7", borderRadius: 100, padding: "8px 18px", cursor: "pointer", fontFamily: "Inter", fontWeight: 700, color: "#2E7D32" }}>Send another message</button>
+              </div>
+            ) : (
             <form onSubmit={handleSubmit}>
               <label style={label}>Full Name</label>
               <input style={input} placeholder="Joshua Stephen" required
@@ -87,12 +98,11 @@ export default function ContactPage() {
                 {loading ? "Sending..." : "✈ Send Message"}
               </button>
               
-              {sent && <p style={{fontFamily:"Inter", color:"#2e7d32", fontWeight:700, textAlign:"center", marginTop:12}}>✓ Message sent! Check Supabase leads table. We will contact you within 1-2 days.</p>}
               <p style={{ fontFamily: "Inter", fontSize: 13, textAlign: "center", marginTop: 12, color: "#2B222B" }}>We typically respond within 1-2 business days.</p>
             </form>
+            )}
           </div>
 
-          {/* RIGHT CALENDLY - UNCHANGED */}
           <div style={card}>
             <div style={{ display: "flex", gap: 10, alignItems: "center", marginBottom: 4 }}>
               <span style={{ fontSize: 26 }}>📅</span>
