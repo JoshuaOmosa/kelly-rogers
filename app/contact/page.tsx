@@ -21,7 +21,6 @@ export default function ContactPage() {
     }
     setLoading(true);
     try {
-      // FIXED: correct endpoint
       const res = await fetch("/api/contact", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -30,9 +29,9 @@ export default function ContactPage() {
       const data = await res.json();
       if(!res.ok) throw new Error(data.error || "Failed to send");
 
-      setSent(true);
       setForm({ name: "", email: "", phone: "", message: "" });
-      setTimeout(() => setSent(false), 8000);
+      setSent(true);
+      setTimeout(() => setSent(false), 3000); // popup disappears in 3 sec
     } catch (err: any) {
       alert("Error: " + err.message);
     } finally {
@@ -56,17 +55,6 @@ export default function ContactPage() {
           <div style={card}>
             <h2 style={h2}>Send us a message</h2>
             
-            {sent ? (
-              <div style={{ background: "#E8F5E9", border: "1px solid #A5D6A7", borderRadius: 12, padding: "32px 20px", textAlign: "center" }}>
-                <div style={{ fontSize: 42, marginBottom: 8 }}>✓</div>
-                <h3 style={{ fontFamily: "Canela, serif", fontSize: 26, color: "#2E7D32", margin: "0 0 8px" }}>Thank you!</h3>
-                <p style={{ fontFamily: "Inter", fontSize: 15, color: "#2B222B", lineHeight: 1.6 }}>
-                  Your message has been received. Our team will review it and get back to you within <b>24 hours</b>.
-                </p>
-                <p style={{ fontFamily: "Inter", fontSize: 13, color: "#666", marginTop: 10 }}>We appreciate you reaching out.</p>
-                <button onClick={() => setSent(false)} style={{ marginTop: 16, background: "white", border: "1px solid #A5D6A7", borderRadius: 100, padding: "8px 18px", cursor: "pointer", fontFamily: "Inter", fontWeight: 700, color: "#2E7D32" }}>Send another message</button>
-              </div>
-            ) : (
             <form onSubmit={handleSubmit}>
               <label style={label}>Full Name</label>
               <input style={input} placeholder="Joshua Stephen" required
@@ -100,7 +88,6 @@ export default function ContactPage() {
               
               <p style={{ fontFamily: "Inter", fontSize: 13, textAlign: "center", marginTop: 12, color: "#2B222B" }}>We typically respond within 1-2 business days.</p>
             </form>
-            )}
           </div>
 
           <div style={card}>
@@ -128,6 +115,27 @@ export default function ContactPage() {
           </div>
         </div>
       </div>
+
+      {/* SIMPLE POPUP */}
+      {sent && (
+        <div style={{
+          position: "fixed",
+          bottom: 24,
+          left: "50%",
+          transform: "translateX(-50%)",
+          background: "#2B222B",
+          color: "white",
+          padding: "12px 24px",
+          borderRadius: 100,
+          fontFamily: "Inter",
+          fontWeight: 700,
+          fontSize: 14,
+          boxShadow: "0 10px 30px rgba(0,0,0,0.2)",
+          zIndex: 9999
+        }}>
+          ✓ Message sent
+        </div>
+      )}
 
       <div style={{ background: "#D9E4D0", marginTop: 32, padding: "18px 20px", display: "flex", gap: 14, alignItems: "flex-start" }}>
         <div style={{ maxWidth: 1180, margin: "0 auto", display: "flex", gap: 14, width: "100%" }}>
