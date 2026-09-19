@@ -1,52 +1,57 @@
 import { NextResponse } from 'next/server'
-import { createClient } from '@supabase/supabase-js'
-import { Resend } from 'resend'
-
-const supabase = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL!,
-  process.env.SUPABASE_SERVICE_ROLE_KEY!
-)
-const resend = new Resend(process.env.RESEND_API_KEY!)
+import { supabaseAdmin } from '@/lib/supabase'
 
 export async function POST(req: Request) {
   try {
-    const { name, email, phone, message, service } = await req.json()
+    const body = await req.json()
+    let { name, email, phone, message, source } = body
 
-    // 1. Log to private DB as New
-    const { data, error } = await supabase
-      .from('inquiries')
-      .insert({
+    if (!name || !email) {
+      return NextResponse.json({ error: 'Name and email required' }, { status: 400 })
+    }
+
+    email = email.toLowerCase().trim() // FIX: normalize
+
+    // Use ilike to find case-insensitive match
+    const { data: existing } = await supabaseAdmin
+      .from('leads')
+      .select('id')
+      .ilike('email', email)
+      .maybeSingle()
+
+    if (existing) {
+      const { error } = await supabaseAdmin
+        .from('leads')
+        .update({
+          name,
+          phone,
+          message,
+          status: 'New',
+          last_contacted_at: new Date().toISOString(),
+        })
+        .eq('id', existing.id)
+      if (error) throw error
+      return NextResponse.json({ ok: true, updated: true, id: existing.id })
+    }
+
+    const { data, error } = await supabaseAdmin
+      .from('leads')
+      .insert([{
         name,
-        email,
+        email, // always save lowercased
         phone,
         message,
-        service,
+        source: source || 'contact_form',
         status: 'New',
-        last_status_change: new Date().toISOString()
-      })
+      }])
       .select()
       .single()
 
     if (error) throw error
+    return NextResponse.json({ ok: true, id: data.id })
 
-    // 2. Notify Kelly immediately
-    await resend.emails.send({
-      from: 'Kelly Rogers <onboarding@resend.dev>',
-      to: 'joshua_stephen1@outlook.com', // <- CHANGE to Kelly's real email
-      subject: `New Inquiry: ${name} - ${service || 'General'}`,
-      html: `
-        <h3>New Lead: ${name}</h3>
-        <p><b>Email:</b> ${email}<br/>
-        <b>Phone:</b> ${phone || 'N/A'}<br/>
-        <b>Service:</b> ${service || 'N/A'}</p>
-        <p>${message}</p>
-        <p><a href="${process.env.NEXT_PUBLIC_SITE_URL}/dashboard">View in Dashboard</a></p>
-      `
-    })
-
-    return NextResponse.json({ success: true, inquiry: data })
-  } catch (err: any) {
-    console.error(err)
-    return NextResponse.json({ error: err.message }, { status: 500 })
+  } catch (e: any) {
+    console.error('Contact error:', e.message)
+    return NextResponse.json({ error: e.message }, { status: 500 })
   }
 }
