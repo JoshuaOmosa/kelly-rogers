@@ -3,7 +3,7 @@ export default function Home(){
     <main className="home">
       <div className="hero-box">
         <h1>Support Through Life's Transitions</h1>
-        <p>Compassionate, evidence-based counselling to help you navigate change, stress, and personal growth — with warmth and understanding.</p>
+        <p>Compassionate, evidence-based counseling to help you navigate change, stress, and personal growth — with warmth and understanding.</p>
         <div className="circle-img"><img src="/kelly.jpg" alt="Kelly"/></div>
         <a href="/contact" className="primary">Book a Free Consultation</a>
         <a href="/process" className="outline">Learn More</a>
@@ -23,9 +23,9 @@ export default function Home(){
           <span className="learn">Learn more →</span>
       </a>
 
-      <a href="/services#counselling" className="card">
+      <a href="/services#counseling" className="card">
           <div className="ic">🧠</div>
-          <div><b>Counselling & Stress Management</b><p>Managing anxiety, burnout, and everyday stress with care</p></div>
+          <div><b>Counseling & Stress Management</b><p>Managing anxiety, burnout, and everyday stress with care</p></div>
           <span className="learn">Learn more →</span>
       </a>
 

@@ -8,7 +8,7 @@ export default function AboutPage(){
         </div>
         <div className="about-text">
           <h1>About Kelly Rogers</h1>
-          <div className="cred">PhD, Clinical & Counselling Psychologist • Doctoral Candidate • Regent University</div>
+          <div className="cred">PhD, Clinical & Counseling Psychologist • Doctoral Candidate • Regent University</div>
           <p className="intro">
             I'm Kelly — a warm and grounded psychologist dedicated to supporting adults through life's 
             challenges with compassion, curiosity, and care. I offer a safe space to explore what's important 

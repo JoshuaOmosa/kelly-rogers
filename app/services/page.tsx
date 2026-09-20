@@ -34,14 +34,14 @@ export default function ServicesPage(){
         </div>
       </section>
 
-      {/* COUNSELLING */}
-      <section id="counselling" className="service-section reverse">
+      {/* COUNSELING */}
+      <section id="counseling" className="service-section reverse">
         <div className="service-img">
-          <img src="https://images.unsplash.com/photo-1544027993-37dbfe43562a?q=80&w=600" alt="Counselling" />
+          <img src="https://images.unsplash.com/photo-1544027993-37dbfe43562a?q=80&w=600" alt="Counseling" />
         </div>
         <div className="service-box">
-          <span className="num">02 • Counselling & Stress Management</span>
-          <h2>Counselling & Stress Management</h2>
+          <span className="num">02 • Counseling & Stress Management</span>
+          <h2>Counseling & Stress Management</h2>
           <p>Therapeutic support to manage stress, anxiety, and overwhelm, helping you build calm, balance, and practical coping tools for everyday life.</p>
           <div className="detail-block">
             <h4>What's Included</h4>
@@ -58,7 +58,7 @@ export default function ServicesPage(){
               <li>Those seeking practical coping tools</li>
             </ul>
           </div>
-          <a href="/contact" className="book-btn">Book Counselling</a>
+          <a href="/contact" className="book-btn">Book Counseling</a>
         </div>
       </section>
 

@@ -8,7 +8,7 @@ export default function Header(){
       <header className="global-header">
         <div>
           <div className="gh-name">Kelly Rogers, PhD</div>
-          <div className="gh-sub">Clinical & Counselling Psychologist</div>
+          <div className="gh-sub">Clinical & Counseling Psychologist</div>
         </div>
         <button onClick={()=>setOpen(!open)} className="gh-burger">☰</button>
         <nav className="gh-desktop">
