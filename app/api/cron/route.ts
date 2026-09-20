@@ -82,5 +82,30 @@ export async function GET() {
     }
   }
 
+    // 3. Auto LOST if unpaid after 7 days
+  const { data: unpaid } = await supabaseAdmin.from('leads').select('*').eq('status','Quote Sent').eq('payment_status','unpaid')
+  for(const l of unpaid||[]){
+    if(!l.quote_sent_at) continue
+    const hrs = (now.getTime() - new Date(l.quote_sent_at).getTime())/3600000
+    if(hrs >= 168){
+      await supabaseAdmin.from('leads').update({ status:'Lost' }).eq('id', l.id)
+      actions.push(`Auto Lost: ${l.email}`)
+    }
+  }
+
+  // 4. Auto Review 24h after Complete
+  const { data: completed } = await supabaseAdmin.from('leads').select('*').eq('status','Complete').is('review_sent_at', null)
+  for(const l of completed||[]){
+    const hrs = (now.getTime() - new Date(l.last_contacted_at||l.quote_sent_at).getTime())/3600000
+    if(hrs >= 24){
+      await resend.emails.send({
+        from: FROM, to: l.email,
+        subject: `How was your experience, ${l.name}?`,
+        html: `<p>Hi ${l.name}, thanks for choosing us! Could you leave a quick review?</p><p><a href="$https://kelly-rogers-one.vercel.app//reviews/submit?lead=${l.id}">Leave Review</a></p>`
+      })
+      await supabaseAdmin.from('leads').update({ review_sent_at: now.toISOString() }).eq('id', l.id)
+      actions.push(`Review sent to: ${l.email}`)
+    }
+  }
   return NextResponse.json({ ok: true, checked: (newLeads?.length||0)+(quotedLeads?.length||0), actions })
 }

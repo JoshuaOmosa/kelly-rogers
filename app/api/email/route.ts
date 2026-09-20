@@ -5,14 +5,22 @@ const resend = new Resend(process.env.RESEND_API_KEY)
 
 export async function POST(req: Request) {
   try {
-    const { to, name, type } = await req.json()
+    const { to, name, type, phone, message } = await req.json()
 
     if (!to) return NextResponse.json({ success: false, error: "Missing to" }, { status: 400 })
 
-    // Use onboarding@resend.dev until your domain is verified in Resend
-    // After you verify kellyrogersinteriors.com in Resend, change to: Kelly Rogers <hello@kellyrogersinteriors.com>
     const FROM = "Kelly Rogers <onboarding@resend.dev>"
-    const KELLY_EMAIL = "kelly@kellyrogersinteriors.com" // <-- change to your real email
+    const KELLY_EMAIL = "kelly@kellyrogersinteriors.com"
+
+    if (type === "new-lead") {
+      const { error } = await resend.emails.send({
+        from: FROM,
+        to: KELLY_EMAIL,
+        subject: `🔥 New Lead: ${name} - ${to}`,
+        html: `<p><b>New lead from website</b></p><p><b>Name:</b> ${name}<br/><b>Email:</b> ${to}<br/><b>Phone:</b> ${phone}<br/><b>Message:</b> ${message}</p><p>Dashboard: ${process.env.NEXT_PUBLIC_SITE_URL}/dashboard</p>`
+      })
+      if (error) throw error
+    }
 
     if (type === "3-day") {
       const { error } = await resend.emails.send({
@@ -35,12 +43,11 @@ export async function POST(req: Request) {
     }
 
     if (type === "24h-kelly") {
-      // This is the reminder TO YOU that a New lead is waiting 24h
       const { error } = await resend.emails.send({
         from: FROM,
         to: KELLY_EMAIL,
         subject: `⏰ Action Needed: Follow up with ${name} - ${to}`,
-        html: `<p>Hi Kelly,</p><p>Lead <b>${name} (${to})</b> has been in <b>New</b> for 24 hours.</p><p>Go to your dashboard to mark as Contacted / Quote Sent.</p><p>Link: ${process.env.NEXT_PUBLIC_SITE_URL}/admin</p>`
+        html: `<p>Hi Kelly,</p><p>Lead <b>${name} (${to})</b> has been in <b>New</b> for 24 hours.</p><p>Go to your dashboard to mark as Contacted / Quote Sent.</p><p>Link: ${process.env.NEXT_PUBLIC_SITE_URL}/dashboard</p>`
       })
       if (error) throw error
     }
