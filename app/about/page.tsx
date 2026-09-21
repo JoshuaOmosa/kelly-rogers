@@ -4,7 +4,7 @@ export default function AboutPage(){
       {/* HERO */}
       <section className="about-hero">
         <div className="about-img">
-          <img src="/kelly.jpg" alt="Kelly Rogers, Ph.D (C), LCMHC, LCAS" />
+          <img src="/kelly-white.jpg" alt="Kelly Rogers, Ph.D (C), LCMHC, LCAS" />
         </div>
         <div className="about-text">
           <h1>About Kelly Rogers</h1>
@@ -70,7 +70,15 @@ export default function AboutPage(){
         .about{ background:#FFFCF7; padding-bottom:40px; }
         .about-hero{ display:flex; gap:50px; padding:60px 60px 30px; align-items:flex-start; max-width:1200px; margin:0 auto; }
         .about-img{ flex:0.8; }
-        .about-img img{ width:100%; aspect-ratio:1/1; object-fit:cover; border-radius:50%; max-width:380px; }
+        .about-img img{ 
+          width:100%; 
+          aspect-ratio:3/4; 
+          object-fit:cover; 
+          object-position:top center; 
+          border-radius:24px; 
+          max-width:380px; 
+          box-shadow:0 8px 30px rgba(0,0,0,0.08);
+        }
         .about-text{ flex:1.2; }
         .about-text h1{ font-family:Georgia, serif; font-size:54px; font-weight:400; margin:0; color:#1e3a3a; line-height:1.05; }
         .cred{ color:#4A7C80; font-family:Arial; font-size:13px; margin:12px 0 18px; }
@@ -89,10 +97,10 @@ export default function AboutPage(){
         .value-card p{ font-family:Arial; font-size:12px; line-height:1.5; color:#555; margin-top:8px; }
         .cta{ display:inline-block; margin-top:28px; background:#4A7C80; color:white; padding:12px 28px; border-radius:8px; text-decoration:none; font-family:Arial; font-size:14px; }
 
-        /* MOBILE - like your screenshot */
+        /* MOBILE - waist still visible */
         @media(max-width:768px){
           .about-hero{ flex-direction:column; padding:24px 20px 10px; align-items:center; text-align:center; gap:20px; }
-          .about-img img{ max-width:180px; }
+          .about-img img{ max-width:320px; aspect-ratio:3/4; border-radius:20px; }
           .about-text h1{ font-size:36px; }
           .cred{ font-size:12px; max-width:300px; margin:10px auto 14px; }
           .about-text{ text-align:left; width:100%; }
