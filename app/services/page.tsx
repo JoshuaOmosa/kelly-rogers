@@ -94,7 +94,7 @@ export default function ServicesPage(){
       {/* 04 - Ph.D PRIVATE PSYCHOTHERAPY ASSESSMENT - NEW */}
       <section id="psychotherapy" className="service-section reverse">
         <div className="service-img">
-          <img src="/kelly-nevy.jpg" alt="Ph.D Private Psychotherapy Assessment - Kelly" />
+          <img src="/kelly-navy.jpg?v=2" alt="Ph.D Private Psychotherapy Assessment" />
         </div>
         <div className="service-box">
           <span className="num">04 • Ph.D Private Psychotherapy Assessment</span>
