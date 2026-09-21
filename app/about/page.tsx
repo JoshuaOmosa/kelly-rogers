@@ -24,7 +24,7 @@ export default function AboutPage(){
 
           <h3>Qualifications & Experience</h3>
           <ul>
-            <li>Ph.D (C), LCMHC, LCAS Candidate in Counseling Studies, Regent University — research on wellbeing & life transitions.</li>
+            <li>PhD Candidate in Counseling Studies, Regent University — research on wellbeing & life transitions.</li>
             <li>10+ years clinical experience in private practice and coaching settings.</li>
             <li>Trained in CBT, ACT, and Compassion-Focused Therapy.</li>
             <li>Virginia Licensed • Expected 2028 • Supervised Clinical Practice.</li>
