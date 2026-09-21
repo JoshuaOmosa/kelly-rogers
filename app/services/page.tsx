@@ -64,11 +64,9 @@ export default function ServicesPage(){
 
       {/* CLINICAL */}
       <section id="clinical" className="service-section">
-       
-{/* 03 - CLINICAL SUPPORT - Wellbeing, growth, journaling, healing */}
-<div className="service-img">
-  <img src="https://images.unsplash.com/photo-1484480974693-6ca0a78fb36b?q=80&w=600" alt="Clinical support and wellbeing" />
-</div>
+        <div className="service-img">
+          <img src="https://images.unsplash.com/photo-1484480974693-6ca0a78fb36b?q=80&w=600" alt="Clinical support and wellbeing" />
+        </div>
         <div className="service-box">
           <span className="num">03 • Clinical Support & Wellbeing</span>
           <h2>Clinical Support & Wellbeing</h2>
@@ -90,6 +88,36 @@ export default function ServicesPage(){
             </ul>
           </div>
           <a href="/contact" className="book-btn">Book This Service</a>
+        </div>
+      </section>
+
+      {/* 04 - Ph.D PRIVATE PSYCHOTHERAPY ASSESSMENT - NEW */}
+      <section id="psychotherapy" className="service-section reverse">
+        <div className="service-img">
+          <img src="/kelly-nevy.jpg" alt="Ph.D Private Psychotherapy Assessment - Kelly" />
+        </div>
+        <div className="service-box">
+          <span className="num">04 • Ph.D Private Psychotherapy Assessment</span>
+          <h2>🛡️ Ph.D Private Psychotherapy Assessment</h2>
+          <p>Comprehensive psychological evaluation and treatment planning conducted with doctoral-level clinical expertise, grounded in evidence-based assessment tools.</p>
+          <div className="detail-block">
+            <h4>What's Included</h4>
+            <ul>
+              <li>Comprehensive psychological evaluation</li>
+              <li>Evidence-based diagnostic assessment</li>
+              <li>Personalized treatment planning & recommendations</li>
+              <li>Clinical report & follow-up consultation</li>
+            </ul>
+          </div>
+          <div className="detail-block">
+            <h4>Who it's for</h4>
+            <ul>
+              <li>Individuals seeking in-depth psychological assessment</li>
+              <li>Clients requiring diagnostic clarity</li>
+              <li>Those needing structured treatment roadmap</li>
+            </ul>
+          </div>
+          <a href="/contact" className="book-btn">Book Psychotherapy Assessment</a>
         </div>
       </section>
 
