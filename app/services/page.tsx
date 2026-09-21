@@ -122,7 +122,7 @@ export default function ServicesPage(){
       </section>
 
       <div className="bottom-cta">
-        <p>Have questions? I offer a free 15-minute consultation to see if we're a good fit.</p>
+        <p>Have questions or want to discuss your needs? Reach out anytime.</p>
         <a href="/contact">Contact Me</a>
       </div>
 
