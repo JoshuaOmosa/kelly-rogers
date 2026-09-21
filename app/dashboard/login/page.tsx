@@ -20,14 +20,14 @@ export default function LoginPage(){
       <div style={{ background:"white", borderRadius:18, padding:"32px 28px", maxWidth:400, width:"100%", boxShadow:"0 12px 40px rgba(0,0,0,0.12)", borderLeft:"7px solid #4A7C7E" }}>
         <div style={{ display:"flex", gap:10, alignItems:"center", marginBottom:18 }}>
           <div style={{ width:40, height:40, background:"#4A7C7E", borderRadius:"50%", display:"flex", alignItems:"center", justifyContent:"center", color:"white" }}>🧠</div>
-          <div><div style={{ fontWeight:900, color:"#2B222B", fontSize:16 }}>Kelly Rogers Psychology</div><div style={{ fontSize:11, color:"#4A7C7E", fontWeight:700 }}>Admin Login • PhD Practice</div></div>
+          <div><div style={{ fontWeight:900, color:"#2B222B", fontSize:16 }}>Kelly Rogers Psychology</div><div style={{ fontSize:11, color:"#4A7C7E", fontWeight:700 }}>Admin Login • Ph.D (C), LCMHC, LCAS Practice</div></div>
         </div>
 
         <h1 style={{ fontFamily:"Canela, serif", fontSize:26, color:"#2B222B", margin:"0 0 6px" }}>Welcome back</h1>
         <p style={{ fontSize:13, color:"#2B222B", opacity:0.7, marginBottom:20 }}>Secure access to Lead & Inquiry Dashboard</p>
 
         <label style={label}>Email</label>
-        <input value={email} onChange={e=>setEmail(e.target.value)} style={input} placeholder="kelly@kellyrogerspsychology.com" />
+        <input value={email} onChange={e=>setEmail(e.target.value)} style={input} placeholder="destini46@outlook.com" />
 
         <label style={label}>Password</label>
         <input type="password" value={pass} onChange={e=>setPass(e.target.value)} style={input} placeholder="••••••••" />

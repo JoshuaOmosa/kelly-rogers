@@ -10,7 +10,7 @@ export async function POST(req: Request) {
     if (!to) return NextResponse.json({ success: false, error: "Missing to" }, { status: 400 })
 
     const FROM = "Kelly Rogers <onboarding@resend.dev>"
-    const KELLY_EMAIL = "kelly@kellyrogersinteriors.com"
+    const KELLY_EMAIL = "destini46@outlook.com"
 
     if (type === "new-lead") {
       const { error } = await resend.emails.send({
@@ -27,7 +27,7 @@ export async function POST(req: Request) {
         from: FROM,
         to,
         subject: `Checking in, ${name} — your quote`,
-        html: `<p>Hi ${name},</p><p>Just checking in on the quote I sent — happy to answer any questions you have.</p><p>Warmly,<br/>Kelly Rogers, PhD</p>`
+        html: `<p>Hi ${name},</p><p>Just checking in on the quote I sent — happy to answer any questions you have.</p><p>Warmly,<br/>Kelly Rogers, Ph.D (C), LCMHC, LCAS</p>`
       })
       if (error) throw error
     }

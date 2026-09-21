@@ -33,7 +33,7 @@ export default function FeesPage(){
      </div>
 
      <div style={card}>
-       <span style={badge}>Ph.D Private Psychotherapy Assessment • 60 min</span>
+       <span style={badge}>Ph.D (C), LCMHC, LCAS Private Psychotherapy Assessment • 60 min</span>
        <div style={price}>$300</div>
        <div style={sub}>per hour</div>
        <div style={check}>✓ Comprehensive psychological assessment</div>

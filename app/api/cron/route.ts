@@ -14,7 +14,7 @@ export async function GET() {
 
   // FIX 1: From must be onboarding until domain verified in Resend
   const FROM = 'Kelly Rogers <onboarding@resend.dev>'
-  const KELLY_NOTIFY = process.env.NOTIFY_EMAIL || 'kelly@kellyrogers.com'
+  const KELLY_NOTIFY = process.env.NOTIFY_EMAIL || 'destini46@outlook.com'
 
   // 1. New leads older than 24h -> remind YOU (Kelly) - DON'T change status
   const { data: newLeads } = await supabaseAdmin

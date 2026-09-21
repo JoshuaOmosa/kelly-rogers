@@ -4,11 +4,11 @@ export default function AboutPage(){
       {/* HERO */}
       <section className="about-hero">
         <div className="about-img">
-          <img src="/kelly.jpg" alt="Kelly Rogers, PhD" />
+          <img src="/kelly.jpg" alt="Kelly Rogers, Ph.D (C), LCMHC, LCAS" />
         </div>
         <div className="about-text">
           <h1>About Kelly Rogers</h1>
-          <div className="cred">PhD, Clinical & Counseling Psychologist • Doctoral Candidate • Regent University</div>
+          <div className="cred">Ph.D (C), LCMHC, LCAS, Clinical & Counseling Psychologist • Doctoral Candidate • Regent University</div>
           <p className="intro">
             I'm Kelly — a warm and grounded psychologist dedicated to supporting adults through life's 
             challenges with compassion, curiosity, and care. I offer a safe space to explore what's important 
@@ -24,7 +24,7 @@ export default function AboutPage(){
 
           <h3>Qualifications & Experience</h3>
           <ul>
-            <li>PhD Candidate in Counseling Studies, Regent University — research on wellbeing & life transitions.</li>
+            <li>Ph.D (C), LCMHC, LCAS Candidate in Counseling Studies, Regent University — research on wellbeing & life transitions.</li>
             <li>10+ years clinical experience in private practice and coaching settings.</li>
             <li>Trained in CBT, ACT, and Compassion-Focused Therapy.</li>
             <li>Virginia Licensed • Expected 2028 • Supervised Clinical Practice.</li>

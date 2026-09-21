@@ -61,7 +61,7 @@ export default function ContactPage() {
                 value={form.name} onChange={e => setForm({...form, name: e.target.value})} />
 
               <label style={label}>Email</label>
-              <input style={input} type="email" placeholder="joshua@email.com" required
+              <input style={input} type="email" placeholder="destini46@outlook.com" required
                 value={form.email} onChange={e => setForm({...form, email: e.target.value})} />
 
               <label style={label}>Phone</label>
@@ -105,7 +105,7 @@ export default function ContactPage() {
 
             <div style={{ marginTop: 18, paddingTop: 14, borderTop: "1px solid #E8DDD0" }}>
               <div style={infoTitle}>📍 Contact Information</div>
-              <div style={infoLine}>✉️ kelly@kellyrogerspsychology.com • Virginia Beach, VA</div>
+              <div style={infoLine}>✉️ destini46@outlook.com • Virginia Beach, VA</div>
               <div style={infoLine}>🕐 Office Hours: Mon-Fri • 9:00am – 5:00pm ET</div>
               <div style={infoLine}>💻 Virginia Beach, VA • Virtual & In-Person Sessions</div>
               <div style={{ marginTop: 10 }}>

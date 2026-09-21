@@ -53,7 +53,7 @@ export default function ProcessPage(){
 
       <div className="cta-wrap">
         <a href="/contact" className="cta-btn">Start Your Journey — Book Consultation</a>
-        <p className="small">Kelly Rogers, PhD • Licensed Psychologist • Private & Confidential • Telehealth Available</p>
+        <p className="small">Kelly Rogers, Ph.D (C), LCMHC, LCAS • Licensed Psychologist • Private & Confidential • Telehealth Available</p>
       </div>
 
       <style>{`
