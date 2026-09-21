@@ -157,18 +157,26 @@ export default function ContactPage() {
         </div>
       )}
 
-      <div style={{ background: "#D9E4D0", marginTop: 32, padding: "18px 20px", display: "flex", gap: 14, alignItems: "flex-start" }}>
-        <div style={{ maxWidth: 1180, margin: "0 auto", display: "flex", gap: 14, width: "100%" }}>
-          <div style={{ minWidth: 36, height: 36, background: "#4A7C7E", color: "white", borderRadius: "50%", display: "flex", alignItems: "center", justifyContent: "center", fontWeight: 900, fontSize: 18 }}>i</div>
-          <div>
-            <div style={{ fontFamily: "Inter", fontWeight: 800, fontSize: 16, color: "#111" }}>If you are in crisis or need immediate support, please contact your local crisis line.</div>
-            <div style={{ fontFamily: "Inter", fontSize: 13, color: "#111", lineHeight: 1.6, marginTop: 4 }}>
-              For Canada: Suicide Crisis Helpline — call or text 988 (24/7) • Crisis Text Line — text HOME to 741741 • Emergency: 911.<br/>
-              For US: Call or text 988 • Suicide & Crisis Lifeline 24/7 • This site is not for emergencies. If you are in immediate danger, call 911 or go to your nearest emergency department.
-            </div>
-          </div>
-        </div>
-      </div>
+     {/* EMERGENCY FOOTER - NEW CLEAN DESIGN */}
+<div style={{ background: "#E9EFE6", marginTop: 40, borderTop: "1px solid #C5D6C0" }}>
+  <div style={{ maxWidth: 1180, margin: "0 auto", padding: "22px 18px", display: "flex", gap: 16, alignItems: "center", justifyContent: "center", flexWrap: "wrap" }}>
+    
+    <div style={{ minWidth: 32, height: 32, background: "#4A7C7E", color: "white", borderRadius: "50%", display: "flex", alignItems: "center", justifyContent: "center", fontWeight: 900, fontSize: 15, fontFamily: "Georgia" }}>i</div>
+    
+    <div style={{ fontFamily: "Inter", fontSize: 14, color: "#1e3a3a", lineHeight: 1.6, textAlign: "center" }}>
+      <span style={{ fontWeight: 800 }}>In case of emergency: </span>
+      <span style={{ fontWeight: 600 }}>Mobile Crisis Contact: 988</span>
+      <span style={{ margin: "0 10px", color: "#8AA89D" }}>•</span>
+      <span style={{ fontWeight: 600 }}>Local Police: 911</span>
+      <span style={{ margin: "0 10px", color: "#8AA89D" }}>•</span>
+      <span style={{ fontWeight: 600 }}>Emergency Services including Emergency Departments</span>
+    </div>
+
+  </div>
+  <div style={{ textAlign: "center", paddingBottom: 14, fontFamily: "Inter", fontSize: 11.5, color: "#6B7F76" }}>
+    This site is not for emergencies. If you are in immediate danger, call 911 or go to your nearest emergency department.
+  </div>
+</div>
 
       <style>{`
         .contact-grid{ display:grid; grid-template-columns:1fr 1fr; gap:20px; }
