@@ -1,17 +1,16 @@
 "use client";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 export default function ContactPage() {
-  const [form, setForm] = useState({ name: "", email: "", phone: "", message: "" });
+  const [form, setForm] = useState({ 
+    name: "", 
+    email: "", 
+    phone: "", 
+    service: "Initial Consultation - 60min", 
+    message: "" 
+  });
   const [loading, setLoading] = useState(false);
   const [sent, setSent] = useState(false);
-
-  useEffect(() => {
-    const script = document.createElement("script");
-    script.src = "https://assets.calendly.com/assets/external/widget.js";
-    script.async = true;
-    document.body.appendChild(script);
-  }, []);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -29,9 +28,9 @@ export default function ContactPage() {
       const data = await res.json();
       if(!res.ok) throw new Error(data.error || "Failed to send");
 
-      setForm({ name: "", email: "", phone: "", message: "" });
+      setForm({ name: "", email: "", phone: "", service: "Initial Consultation - 60min", message: "" });
       setSent(true);
-      setTimeout(() => setSent(false), 3000); // popup disappears in 3 sec
+      setTimeout(() => setSent(false), 4000);
     } catch (err: any) {
       alert("Error: " + err.message);
     } finally {
@@ -46,27 +45,36 @@ export default function ContactPage() {
         <div style={{ textAlign: "center", marginBottom: 28 }}>
           <h1 style={{ fontFamily: "Canela, Georgia, serif", fontSize: "clamp(42px,6vw,64px)", color: "#4A7C7E", margin: 0, lineHeight: 1 }}>Contact</h1>
           <p style={{ fontFamily: "Inter", fontSize: 17, color: "#2B222B", fontWeight: 500, maxWidth: 700, margin: "14px auto 0", lineHeight: 1.6 }}>
-            We're here to help. Have a question or want to connect? Send us a message below or book a free 15-minute consultation to see if we're a good fit.<br/>
+            Ready to start? Send us a message below. We will reply with your consultation fee and next steps.<br/>
             <b style={{ color: "#4A7C7E" }}> Doctoral Candidate - Regent University - May 2028 • Virginia Beach, VA</b>
           </p>
         </div>
 
         <div className="contact-grid">
+          {/* LEFT - FORM */}
           <div style={card}>
             <h2 style={h2}>Send us a message</h2>
             
             <form onSubmit={handleSubmit}>
               <label style={label}>Full Name</label>
-              <input style={input} placeholder="Joshua Stephen" required
+              <input style={input} placeholder="Kelly Rogers" required
                 value={form.name} onChange={e => setForm({...form, name: e.target.value})} />
 
               <label style={label}>Email</label>
-              <input style={input} type="email" placeholder="destini46@outlook.com" required
+              <input style={input} type="email" placeholder="you@email.com" required
                 value={form.email} onChange={e => setForm({...form, email: e.target.value})} />
 
               <label style={label}>Phone</label>
-              <input style={input} placeholder="(555) 123-4567"
+              <input style={input} placeholder="(555) 123-4567" required
                 value={form.phone} onChange={e => setForm({...form, phone: e.target.value})} />
+
+              <label style={label}>Service Interested In</label>
+              <select style={input} value={form.service} onChange={e => setForm({...form, service: e.target.value})}>
+                <option>Initial Consultation - 60min</option>
+                <option>Divorce Coaching</option>
+                <option>Counselling & Stress Management</option>
+                <option>Clinical Support & Wellbeing</option>
+              </select>
 
               <label style={label}>How can we support you?</label>
               <textarea style={{ ...input, height: 110, resize: "none" }} required
@@ -86,37 +94,48 @@ export default function ContactPage() {
                 {loading ? "Sending..." : "✈ Send Message"}
               </button>
               
-              <p style={{ fontFamily: "Inter", fontSize: 13, textAlign: "center", marginTop: 12, color: "#2B222B" }}>We typically respond within 1-2 business days.</p>
+              <p style={{ fontFamily: "Inter", fontSize: 13, textAlign: "center", marginTop: 12, color: "#2B222B" }}>We typically respond within 24 hours.</p>
             </form>
           </div>
 
-          <div style={card}>
-            <div style={{ display: "flex", gap: 10, alignItems: "center", marginBottom: 4 }}>
-              <span style={{ fontSize: 26 }}>📅</span>
-              <h2 style={{ ...h2, margin: 0 }}>Book a Free 15-min Consultation</h2>
-            </div>
-            <p style={{ fontFamily: "Inter", fontSize: 13, color: "#2B222B", margin: "0 0 12px 36px" }}>Select a time that works for you — powered by Calendly</p>
-
-            <div
-              className="calendly-inline-widget"
-              data-url="https://calendly.com/joshua_stephen1/30min?hide_gdpr_banner=1&background_color=FDFD&text_color=2B222B&primary_color=4A7C7E"
-              style={{ minWidth: "100%", height: 560, borderRadius: 12, overflow: "hidden" }}
-            />
-
-            <div style={{ marginTop: 18, paddingTop: 14, borderTop: "1px solid #E8DDD0" }}>
-              <div style={infoTitle}>📍 Contact Information</div>
-              <div style={infoLine}>✉️ destini46@outlook.com • Virginia Beach, VA</div>
-              <div style={infoLine}>🕐 Office Hours: Mon-Fri • 9:00am – 5:00pm ET</div>
-              <div style={infoLine}>💻 Virginia Beach, VA • Virtual & In-Person Sessions</div>
-              <div style={{ marginTop: 10 }}>
-                <a href="https://calendly.com/joshua_stephen1/30min" target="_blank" style={{ fontFamily: "Inter", fontSize: 13, color: "#4A7C7E", fontWeight: 700 }}>Or book directly: calendly.com/joshua_stephen1/30min</a>
+          {/* RIGHT - OFFICE HOURS + HOW IT WORKS */}
+          <div style={{ display: "flex", flexDirection: "column", gap: 20 }}>
+            
+            <div style={card}>
+              <h2 style={h2}>How Booking Works</h2>
+              <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
+                <div style={step}><span style={stepNum}>1</span><div><b>Send Message</b><br/><span style={stepText}>Fill the form on the left.</span></div></div>
+                <div style={step}><span style={stepNum}>2</span><div><b>Receive Fee Link</b><br/><span style={stepText}>We reply with consultation fee & payment link via email.</span></div></div>
+                <div style={step}><span style={stepNum}>3</span><div><b>Pay to Secure</b><br/><span style={stepText}>After payment, status becomes WON and you get a private link to pick time.</span></div></div>
+                <div style={step}><span style={stepNum}>4</span><div><b>Pick Your Time</b><br/><span style={stepText}>Choose only from Kelly's real available slots - no double-booking.</span></div></div>
               </div>
             </div>
+
+            <div style={{ ...card, borderLeft: "5px solid #4A7C7E" }}>
+              <div style={{ display: "flex", gap: 10, alignItems: "center", marginBottom: 12 }}>
+                <span style={{ fontSize: 24 }}>🕐</span>
+                <h2 style={{ ...h2, margin: 0 }}>Office Hours</h2>
+              </div>
+              <div style={{ fontFamily: "Inter", fontSize: 14, lineHeight: 2.2, color: "#111" }}>
+                <div>✓ <b>Mon, Wed:</b> 9am - 5pm</div>
+                <div>✓ <b>Tue, Thu:</b> 9am - 3pm</div>
+                <div>✓ <b>Fri:</b> 9am - 1pm</div>
+                <div>✓ <b>Tue-Thu Evening:</b> 6pm - 7:30pm</div>
+              </div>
+              <div style={{ marginTop: 12, background: "#F7F3EF", padding: 10, borderRadius: 8, fontFamily: "Inter", fontSize: 12.5, lineHeight: 1.5 }}>
+                Our scheduling system automatically blocks times outside these hours and prevents double-booking. You will only see open, valid slots after payment.
+              </div>
+              <div style={{ marginTop: 18, paddingTop: 14, borderTop: "1px solid #E8DDD0" }}>
+                <div style={infoTitle}>📍 Contact Information</div>
+                <div style={infoLine}>✉️ destini46@outlook.com</div>
+                <div style={infoLine}>📍 Virginia Beach, VA • Virtual & In-Person</div>
+              </div>
+            </div>
+
           </div>
         </div>
       </div>
 
-      {/* SIMPLE POPUP */}
       {sent && (
         <div style={{
           position: "fixed",
@@ -125,15 +144,16 @@ export default function ContactPage() {
           transform: "translateX(-50%)",
           background: "#2B222B",
           color: "white",
-          padding: "12px 24px",
+          padding: "14px 28px",
           borderRadius: 100,
           fontFamily: "Inter",
           fontWeight: 700,
           fontSize: 14,
           boxShadow: "0 10px 30px rgba(0,0,0,0.2)",
-          zIndex: 9999
+          zIndex: 9999,
+          textAlign: "center"
         }}>
-          ✓ Message sent
+          ✓ Message sent! We will reply with your fee & payment link within 24h.
         </div>
       )}
 
@@ -161,10 +181,13 @@ export default function ContactPage() {
 }
 
 const card = { background: "white", border: "1.5px solid #4A7C7E", borderRadius: 16, padding: "22px 20px", boxShadow: "0 10px 30px rgba(0,0,0,0.08)" } as const
-const h2 = { fontFamily: "Canela, Georgia, serif", fontSize: 28, color: "#2B222B", margin: "0 0 16px" } as const
+const h2 = { fontFamily: "Canela, Georgia, serif", fontSize: 26, color: "#2B222B", margin: "0 0 16px" } as const
 const label = { fontFamily: "Inter", fontSize: 13, fontWeight: 700, color: "#2B222B", display: "block", margin: "12px 0 6px" } as const
 const input = { width: "100%", background: "#F7F3EF", border: "1px solid #E0D5C3", borderRadius: 8, padding: "11px 14px", fontFamily: "Inter", fontSize: 15, color: "#111", outline: "none" } as const
 const small = { fontFamily: "Inter", fontSize: 12.5, color: "#2B222B", lineHeight: 1.5 } as const
 const btn = { width: "100%", marginTop: 18, background: "#4A7C7E", color: "white", border: "none", borderRadius: 100, padding: "14px", fontFamily: "Inter", fontSize: 16, fontWeight: 800, cursor: "pointer" } as const
 const infoTitle = { fontFamily: "Inter", fontSize: 14, fontWeight: 800, color: "#2B222B", marginBottom: 8 } as const
 const infoLine = { fontFamily: "Inter", fontSize: 13, color: "#2B222B", lineHeight: 1.8, fontWeight: 500 } as const
+const step = { display: "flex", gap: 12, alignItems: "flex-start", fontFamily: "Inter", fontSize: 13.5 } as const
+const stepNum = { minWidth: 28, height: 28, background: "#4A7C7E", color: "white", borderRadius: "50%", display: "flex", alignItems: "center", justifyContent: "center", fontWeight: 800, fontSize: 13 } as const
+const stepText = { fontSize: 12.5, color: "#444" } as const
