@@ -74,6 +74,7 @@ export default function ContactPage() {
                 <option>Divorce Coaching</option>
                 <option>Counselling & Stress Management</option>
                 <option>Clinical Support & Wellbeing</option>
+                <option>Ph.D Private Psychotherapy Assessment</option>
               </select>
 
               <label style={label}>How can we support you?</label>
@@ -104,10 +105,10 @@ export default function ContactPage() {
             <div style={card}>
               <h2 style={h2}>How Booking Works</h2>
               <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
-                <div style={step}><span style={stepNum}>1</span><div><b>Send Message</b><br/><span style={stepText}>Fill the form on the left.</span></div></div>
+                <div style={step}><span style={stepNum}>1</span><div><b>Send Message</b><br/><span style={stepText}>Fill the form.</span></div></div>
                 <div style={step}><span style={stepNum}>2</span><div><b>Receive Fee Link</b><br/><span style={stepText}>We reply with consultation fee & payment link via email.</span></div></div>
-                <div style={step}><span style={stepNum}>3</span><div><b>Pay to Secure</b><br/><span style={stepText}>After payment, status becomes WON and you get a private link to pick time.</span></div></div>
-                <div style={step}><span style={stepNum}>4</span><div><b>Pick Your Time</b><br/><span style={stepText}>Choose only from Kelly's real available slots - no double-booking.</span></div></div>
+                <div style={step}><span style={stepNum}>3</span><div><b>Pay to Secure</b><br/><span style={stepText}>After payment, you get a private link to pick time.</span></div></div>
+                <div style={step}><span style={stepNum}>4</span><div><b>Pick Your Time</b><br/><span style={stepText}>Choose only from the available slots - no double-booking.</span></div></div>
               </div>
             </div>
 
