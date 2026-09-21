@@ -5,7 +5,7 @@ export default function Home(){
         <h1>Support Through Life's Transitions</h1>
         <p>Compassionate, evidence-based counseling to help you navigate change, stress, and personal growth — with warmth and understanding.</p>
         <div className="circle-img"><img src="/kelly.jpg" alt="Kelly"/></div>
-        <a href="/contact" className="primary">Book a Free Consultation</a>
+        <a href="/contact" className="primary">Book Consultation</a>
         <a href="/process" className="outline">Learn More</a>
       </div>
 
@@ -32,6 +32,11 @@ export default function Home(){
       <a href="/services#clinical" className="card">
          <div className="ic">🛡️</div>
           <div><b>Clinical Support</b><p>Evidence-based therapy for adjustment, grief & life transitions</p></div>
+          <span className="learn">Learn more →</span>
+      </a>
+      <a href="/services#Ph.D Private Psychotherapy Assessment" className="card">
+         <div className="ic">🛡️</div>
+          <div><b>Ph.D Private Psychotherapy Assessment</b><p>Comprehensive psychological evaluation and treatment planning</p></div>
           <span className="learn">Learn more →</span>
       </a>
       </div>
