@@ -10,15 +10,12 @@ const supabase = createClient(
 
 // EXACT FEES - SERVER TRUTH
 const PRICE_MAP: Record<string, number> = {
-  "Initial Consultation - 60min": 150,
   "Initial Consultation": 150,
   "Divorce Coaching": 200,
   "Counselling & Stress Management": 200,
-  "Counseling and stress management": 200,
   "Clinical Support & Wellbeing": 200,
-  "Clinical support and well being": 200,
   "Ph.D Private Psychotherapy Assessment": 300,
-  "Ph.D Private Psychotherapy Assessment": 300,
+  
 };
 
 function getPriceForLead(lead: any): number {
