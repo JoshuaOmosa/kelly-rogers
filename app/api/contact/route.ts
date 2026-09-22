@@ -81,22 +81,27 @@ export async function POST(req: Request) {
     // TODO: Send auto email here with Resend
     console.log("AUTO EMAIL TO:", email, emailSubject, emailBody)
 
-    // If you have RESEND_API_KEY, uncomment this:
-    /*
+       // SEND REAL EMAIL WITH RESEND
     if (process.env.RESEND_API_KEY) {
-      await fetch("https://api.resend.com/emails", {
-        method: "POST",
-        headers: { Authorization: `Bearer ${process.env.RESEND_API_KEY}`, "Content-Type": "application/json" },
-        body: JSON.stringify({
-          from: "Kelly Rogers <noreply@yourdomain.com>",
-          to: email,
-          subject: emailSubject,
-          text: emailBody
+      try {
+        await fetch("https://api.resend.com/emails", {
+          method: "POST",
+          headers: { 
+            Authorization: `Bearer ${process.env.RESEND_API_KEY}`, 
+            "Content-Type": "application/json" 
+          },
+          body: JSON.stringify({
+            from: "Kelly Rogers <onboarding@resend.dev>", // change to your verified domain later
+            to: email,
+            subject: emailSubject,
+            text: emailBody,
+            html: `<div style="font-family:Inter,sans-serif"><h3>${emailSubject}</h3><p>Hi ${name},</p><p>You selected: <b>${service}</b></p><p style="font-size:22px;color:#4A7C7E"><b>Exact Fee: $${exactPrice}</b></p><p>${useInsurance ? `You pay $${exactPrice} upfront. We will issue a Superbill for ${insuranceProvider}.` : `You will only be billed for this chosen service.`}</p><p>We will send payment link within 24h.</p></div>`
+          })
         })
-      })
+      } catch (mailErr) {
+        console.error("Resend error:", mailErr)
+      }
     }
-    */
-
     return NextResponse.json({ ok: true, id: data.id, exactPrice, emailSubject })
 
   } catch (e: any) {
