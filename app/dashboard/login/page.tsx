@@ -7,12 +7,14 @@ export default function LoginPage(){
   const [pass,setPass]=useState("");
   const router=useRouter();
 
-  const handleLogin = () => {
-    // simple auth - replace with real auth later
-    if(email && pass){
-      localStorage.setItem("kr_auth","true");
-      router.push("/dashboard");
-    }
+  // Checked on the server, which sets an httpOnly session cookie.
+  const handleLogin = async () => {
+    const res = await fetch("/api/auth/login", {
+      method:"POST", headers:{"Content-Type":"application/json"},
+      body: JSON.stringify({ email, password: pass })
+    });
+    if(res.ok) router.push("/dashboard");
+    else alert("Invalid email or password");
   };
 
   return(

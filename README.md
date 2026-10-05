@@ -291,7 +291,6 @@ All endpoints are Next.js route handlers under `app/api/`.
 | `POST` | `/api/quote/send` | Create a Paystack payment link, mark the lead `Quote Sent`, and email the quotation. |
 | `POST` | `/api/quote/insurance` | Record insurance provider and member ID; status becomes `Insurance Info Received`. |
 | `POST` | `/api/webhook/paystack` | Receive Paystack events. Verifies the `x-paystack-signature` HMAC SHA-512 header; on `charge.success` marks the lead `Complete` and `paid`. |
-| `POST` | `/api/webhook/test-pay` | Test utility that marks a lead as paid. **Development use only.** |
 | `POST` | `/api/email` | Send a templated email by `type`: `new-lead`, `3-day`, `7-day`, or `24h-kelly`. |
 | `GET` | `/api/cron` | Run the automation rules described in [section 5.2](#52-scheduled-automation). |
 
@@ -393,6 +392,12 @@ PAYSTACK_SECRET_KEY=sk_test_XXXXXXXXXXXX
 
 # Public base URL, used to build links in emails
 NEXT_PUBLIC_SITE_URL=http://localhost:3000
+
+# Admin sign-in and scheduled-job protection
+ADMIN_EMAIL=administrator@example.com
+ADMIN_PASSWORD=choose-a-long-password
+SESSION_SECRET=random-64-hex-chars
+CRON_SECRET=random-64-hex-chars
 ```
 
 | Variable | Required | Description |
@@ -404,6 +409,9 @@ NEXT_PUBLIC_SITE_URL=http://localhost:3000
 | `NOTIFY_EMAIL` | Recommended | Address that receives administrator reminders |
 | `PAYSTACK_SECRET_KEY` | For payments | Creates payment links and verifies webhooks. Without it, quotations link to the internal `/pay/[id]` page. |
 | `NEXT_PUBLIC_SITE_URL` | Yes | Absolute site URL (no trailing slash) |
+| `ADMIN_EMAIL` / `ADMIN_PASSWORD` | Yes | Dashboard sign-in, checked on the server |
+| `SESSION_SECRET` | Yes | Signs the admin session cookie |
+| `CRON_SECRET` | Yes | `/api/cron` rejects requests without `Authorization: Bearer <CRON_SECRET>` (Vercel Cron sends it automatically) |
 
 ### Run locally
 

@@ -1,12 +1,14 @@
 import { NextResponse } from 'next/server'
 import { supabaseAdmin } from '@/lib/supabase'
 import { Resend } from 'resend'
+import { isAdmin, unauthorized } from '@/lib/auth'
 
 const resend = new Resend(process.env.RESEND_API_KEY!)
 const FROM = 'Kelly Rogers <onboarding@resend.dev>'
 const SITE = process.env.NEXT_PUBLIC_SITE_URL!
 
 export async function POST(req: Request) {
+  if (!isAdmin(req)) return unauthorized()
   const { leadId, amount, note, service } = await req.json()
   const { data: lead } = await supabaseAdmin.from('leads').select('*').eq('id', leadId).single()
   if(!lead) return NextResponse.json({error:'Lead not found'}, {status:404})

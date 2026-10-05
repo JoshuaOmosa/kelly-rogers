@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server'
 import { createClient } from '@supabase/supabase-js'
+import { isAdmin, unauthorized } from '@/lib/auth'
 
 const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL!,
@@ -44,13 +45,26 @@ export async function POST(req: Request) {
   }
 }
 
-export async function GET() {
+export async function GET(req: Request) {
+  // The client's pay page looks up its own quote by id; return only what
+  // that page shows. The full list is admin-only.
+  const id = new URL(req.url).searchParams.get('id')
+  if (id) {
+    const { data, error } = await supabase.from('leads')
+      .select('name, service, quote_amount, exact_price, payment_link')
+      .eq('id', id).maybeSingle()
+    if (error || !data) return NextResponse.json({ error: 'Not found' }, { status: 404 })
+    return NextResponse.json(data)
+  }
+  if (!isAdmin(req)) return unauthorized()
+
   const { data, error } = await supabase.from('leads').select('*').order('created_at', { ascending: false })
   if (error) return NextResponse.json({ error: error.message }, { status: 500 })
   return NextResponse.json(data || [])
 }
 
 export async function PATCH(req: Request) {
+  if (!isAdmin(req)) return unauthorized()
   const { id, status } = await req.json()
   const { error } = await supabase.from('leads').update({ 
     status, 
@@ -61,6 +75,7 @@ export async function PATCH(req: Request) {
 }
 // DELETE LEAD
 export async function DELETE(req: Request) {
+  if (!isAdmin(req)) return unauthorized()
   const { id } = await req.json();
   const supabase = createClient(
     process.env.NEXT_PUBLIC_SUPABASE_URL!,

@@ -55,12 +55,12 @@ export default function DashboardPage(){
   const [sending, setSending] = useState(false);
 
   useEffect(()=>{
-    if(!localStorage.getItem("kr_auth")) router.push("/dashboard/login");
     fetchLeads();
   },[router]);
 
   const fetchLeads = async () => {
     const res = await fetch("/api/leads")
+    if(res.status === 401){ router.push("/dashboard/login"); return; }
     const data = await res.json()
     if(!data ||!Array.isArray(data)) return;
     const mapped: Lead[] = data.map((l:any)=>({
@@ -156,7 +156,7 @@ export default function DashboardPage(){
           <div style={{fontSize:11, color:"#D9E4D0", fontWeight:900, marginBottom:8}}>LOG</div>
           {log.map((l,i)=><div key={i} style={{fontSize:12, color:"#F7F3EF", marginTop:6}}>{l}</div>)}
         </div>
-        <button onClick={()=>{localStorage.removeItem("kr_auth"); router.push("/dashboard/login")}} style={{...sideBtn(false), marginTop:"auto"}}>Logout</button>
+        <button onClick={async ()=>{ await fetch("/api/auth/logout", {method:"POST"}); router.push("/dashboard/login"); }} style={{...sideBtn(false), marginTop:"auto"}}>Logout</button>
       </aside>
 
       <div style={{flex:1, padding:"28px 24px"}}>

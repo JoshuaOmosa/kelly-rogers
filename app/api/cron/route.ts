@@ -4,7 +4,11 @@ import { Resend } from 'resend'
 
 const resend = new Resend(process.env.RESEND_API_KEY || 'dummy_key_for_build')
 
-export async function GET() {
+export async function GET(req: Request) {
+  // Vercel Cron sends this header automatically when CRON_SECRET is set.
+  if (!process.env.CRON_SECRET || req.headers.get('authorization') !== `Bearer ${process.env.CRON_SECRET}`) {
+    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
+  }
   if (!process.env.RESEND_API_KEY) {
     return NextResponse.json({ ok: true, message: 'Skipped - no RESEND key set' })
   }

@@ -25,12 +25,6 @@ export default function PayPage(){
     setSent(true)
   }
 
-  const markPaid = async ()=>{
-    await fetch('/api/webhook/test-pay', {method:'POST', body: JSON.stringify({leadId:id})})
-    alert('Marked as Paid -> Check dashboard')
-    window.location.href='/dashboard'
-  }
-
   if(!lead) return <div style={{padding:40, textAlign:'center'}}>Loading your quote...</div>
 
   return (
@@ -56,7 +50,7 @@ export default function PayPage(){
             {lead.payment_link?.includes('paystack') ? (
               <a href={lead.payment_link} style={{display:'block', background:'#000', color:'#fff', padding:'16px 32px', borderRadius:8, textDecoration:'none', fontWeight:800, marginTop:10}}>Pay with Paystack ${lead.quote_amount}</a>
             ) : (
-              <button onClick={markPaid} style={{background:'#000', color:'#fff', padding:'16px 32px', borderRadius:8, border:'none', fontWeight:800, width:'100%', marginTop:10}}>Simulate Payment (Mark Paid) — TEST</button>
+              <p style={{fontSize:14}}>Kelly will email you a secure payment link.</p>
             )}
             <button onClick={()=>setChoice(null)} style={{marginTop:12, background:'transparent', border:'none', textDecoration:'underline', cursor:'pointer'}}>Back</button>
           </div>
@@ -78,7 +72,7 @@ export default function PayPage(){
           <div style={{marginTop:20, background:'#D6E8FF', padding:16, borderRadius:10, textAlign:'center'}}>
             <strong>✅ Got it!</strong> We received {provider} — {memberId}<br/><br/>
             Now pay to confirm, Kelly will issue your Superbill after.<br/>
-            <button onClick={markPaid} style={{background:'#000', color:'#fff', padding:'16px 32px', borderRadius:8, border:'none', fontWeight:800, width:'100%', marginTop:12}}>Pay Now ${lead.quote_amount} & Confirm</button>
+            {lead.payment_link?.includes('paystack') && <a href={lead.payment_link} style={{display:'block', background:'#000', color:'#fff', padding:'16px 32px', borderRadius:8, textDecoration:'none', fontWeight:800, marginTop:12}}>Pay Now ${lead.quote_amount} & Confirm</a>}
           </div>
         )}
       </div>
