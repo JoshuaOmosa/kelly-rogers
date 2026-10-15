@@ -285,14 +285,14 @@ All endpoints are Next.js route handlers under `app/api/`.
 |--------|----------|---------|
 | `POST` | `/api/contact` | Create a lead from the contact form. Normalises the email address; updates and resets to `New` if a lead with that email already exists. |
 | `POST` | `/api/leads` | Create a lead. Also accepts Calendly booking payloads. |
-| `GET` | `/api/leads` | List all leads, newest first. |
-| `PATCH` | `/api/leads` | Update a lead's status. |
-| `DELETE` | `/api/leads` | Delete a lead. |
-| `POST` | `/api/quote/send` | Create a Paystack payment link, mark the lead `Quote Sent`, and email the quotation. |
+| `GET` | `/api/leads` | Admin session required: list all leads. With `?id=`, public: returns only the fields the client pay page shows. |
+| `PATCH` | `/api/leads` | Admin session required: update a lead's status. |
+| `DELETE` | `/api/leads` | Admin session required: delete a lead. |
+| `POST` | `/api/quote/send` | Admin session required. Create a Paystack payment link, mark the lead `Quote Sent`, and email the quotation. |
 | `POST` | `/api/quote/insurance` | Record insurance provider and member ID; status becomes `Insurance Info Received`. |
 | `POST` | `/api/webhook/paystack` | Receive Paystack events. Verifies the `x-paystack-signature` HMAC SHA-512 header; on `charge.success` marks the lead `Complete` and `paid`. |
-| `POST` | `/api/email` | Send a templated email by `type`: `new-lead`, `3-day`, `7-day`, or `24h-kelly`. |
-| `GET` | `/api/cron` | Run the automation rules described in [section 5.2](#52-scheduled-automation). |
+| `POST` | `/api/email` | Admin session required. Send a templated email by `type`: `new-lead`, `3-day`, `7-day`, or `24h-kelly`. |
+| `GET` | `/api/cron` | Requires `Authorization: Bearer <CRON_SECRET>`. Run the automation rules described in [section 5.2](#52-scheduled-automation). |
 
 **Example: submit an enquiry**
 
@@ -499,9 +499,9 @@ The platform handles **sensitive personal information**: names, contact details,
 
 The following items should be completed before the system is used with real client data.
 
-- [ ] **Administrator authentication.** The current sign-in is a placeholder implemented in the browser. Replace it with server-verified authentication (for example Supabase Auth) and enforce sessions on the dashboard.
-- [ ] **API authorization.** Restrict lead-management, quotation, email, and scheduled-job endpoints to authenticated administrators or to a shared secret, as appropriate.
-- [ ] **Test utilities.** Remove or disable `/api/webhook/test-pay` and the "Simulate Payment" control in production builds.
+- [x] **Administrator authentication.** Sign-in is checked on the server against `ADMIN_EMAIL` / `ADMIN_PASSWORD` and sets a signed httpOnly session cookie.
+- [x] **API authorization.** Lead management, quotation and email endpoints require the admin session; the scheduled job requires `CRON_SECRET`.
+- [x] **Test utilities.** The test payment route and "Simulate Payment" buttons have been removed.
 - [ ] **Row Level Security.** Enable RLS on the `leads` table. Do not rely on the anon key alone.
 - [ ] **Least privilege.** Confirm the service-role key is used only in server code and is never exposed to the browser.
 - [ ] **Email content safety.** Escape user-supplied values (name, message) before inserting them into HTML emails.
@@ -532,7 +532,7 @@ The interface contains references to HIPAA. Compliance with HIPAA or any other r
 
 ### Planned work
 
-- [ ] Server-side authentication and authorised API routes
+- [x] Server-side authentication and authorised API routes
 - [ ] Database migrations and Row Level Security policies
 - [ ] Persistent, moderated client reviews
 - [ ] Quote and payment confirmation pages
@@ -572,8 +572,7 @@ kelly-rogers/
 │       │   ├── send/route.ts
 │       │   └── insurance/route.ts
 │       └── webhook/
-│           ├── paystack/route.ts
-│           └── test-pay/route.ts
+│           └── paystack/route.ts
 ├── lib/supabase.ts                 Browser and server Supabase clients
 ├── public/                         Images and static assets
 ├── next.config.ts
